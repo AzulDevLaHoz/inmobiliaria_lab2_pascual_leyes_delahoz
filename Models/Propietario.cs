@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 {
-
     public class Propietario
     {
         [Key]
@@ -19,6 +18,11 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
         public String Telefono { get; set; } = "";
         [Required, EmailAddress]
         public String Email { get; set; } = "";
+        public override string ToString()
+        {
+            var res = $"{Nombre} {Apellido}";
 
+            return res;
+        }
     }
 }

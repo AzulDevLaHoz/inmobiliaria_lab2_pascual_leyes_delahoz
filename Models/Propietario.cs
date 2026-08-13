@@ -8,7 +8,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
     {
         [Key]
         [Display(Name = "Código Int.")]
-        public int idPropietario { get; set; }
+        public int IdPropietario { get; set; }
 
         [Required]
         public String Nombre { get; set; } = "";

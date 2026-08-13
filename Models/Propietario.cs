@@ -9,7 +9,7 @@ public class Propietario
     {
     [Key]
     [Display(Name = "Código Int.")]
-     public int IdPropietario{ get;set; }   
+    public int IdPropietario{ get;set; }   
     
     [Required]
     public String Nombre {get;set;}="";

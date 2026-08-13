@@ -5,11 +5,11 @@ using System.Diagnostics.CodeAnalysis;
 namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 {
 
-    public class Propietario
+    public class Inquilino
     {
         [Key]
         [Display(Name = "Código Int.")]
-        public int idPropietario { get; set; }
+        public int idInquilino { get; set; }
 
         [Required]
         public String Nombre { get; set; } = "";

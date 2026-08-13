@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace inmboiliarialab2_pascual_leyes_delahoz.Models
+namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 {
     
 public class Propietario

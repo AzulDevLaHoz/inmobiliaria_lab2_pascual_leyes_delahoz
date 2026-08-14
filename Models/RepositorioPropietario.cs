@@ -61,7 +61,7 @@ public class RepositorioPropietario
     {
         using (var conn = new MySqlConnection(connectionString))
         {
-            string sql = "INSERT INTO propietarios (Nombre, Apellido, Telefono, Email) VALUES (@n, @a, @t, @e)";
+            string sql = "INSERT INTO propietario (Nombre, Apellido, Telefono, Email) VALUES (@n, @a, @t, @e)";
             var cmd = new MySqlCommand(sql, conn);
             
             cmd.Parameters.AddWithValue("@n", p.Nombre);
@@ -73,4 +73,30 @@ public class RepositorioPropietario
             return cmd.ExecuteNonQuery(); 
         }
     }
+
+    public int ModificarPropietario(Propietario p)
+{
+    using (var conn = new MySqlConnection(connectionString))
+    {
+        string sql = @"UPDATE Propietario 
+                       SET Nombre = @n, 
+                           Apellido = @a, 
+                           Telefono = @t, 
+                           Email = @e 
+                       WHERE IdPropietario = @id;";
+
+        var cmd = new MySqlCommand(sql, conn);
+        
+        cmd.Parameters.AddWithValue("@id", p.idPropietario); 
+        cmd.Parameters.AddWithValue("@n", p.Nombre);
+        cmd.Parameters.AddWithValue("@a", p.Apellido);
+        cmd.Parameters.AddWithValue("@t", p.Telefono);
+        cmd.Parameters.AddWithValue("@e", p.Email);
+
+        conn.Open();
+        return cmd.ExecuteNonQuery(); 
+    }
+}
+
+
 }

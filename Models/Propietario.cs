@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+
 
 namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 {

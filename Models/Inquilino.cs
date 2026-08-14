@@ -9,16 +9,25 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
     {
         [Key]
         [Display(Name = "Código Int.")]
-        public int idInquilino { get; set; }
+        public int IdInquilino { get; set; }
 
         [Required]
         public String Nombre { get; set; } = "";
+
         [Required]
         public String Apellido { get; set; } = "";
+
         [Display(Name = "telefono")]
         public String Telefono { get; set; } = "";
+
         [Required, EmailAddress]
         public String Email { get; set; } = "";
 
+        public override string ToString()
+        {
+            var res = $"{Nombre} {Apellido}";
+
+            return res;
+        }
     }
 }

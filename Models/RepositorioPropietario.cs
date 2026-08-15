@@ -24,7 +24,7 @@ public class RepositorioPropietario
             {
                 lista.Add(new Propietario
                 {
-                    idPropietario = Convert.ToInt32(reader["IdPropietario"]),
+                    IdPropietario = Convert.ToInt32(reader["IdPropietario"]),
                     Nombre = reader["Nombre"].ToString() ?? "",
                     Apellido = reader["Apellido"].ToString() ?? "",
                     Telefono = reader["Telefono"].ToString() ?? "",
@@ -87,7 +87,7 @@ public class RepositorioPropietario
 
         var cmd = new MySqlCommand(sql, conn);
         
-        cmd.Parameters.AddWithValue("@id", p.idPropietario); 
+        cmd.Parameters.AddWithValue("@id", p.IdPropietario); 
         cmd.Parameters.AddWithValue("@n", p.Nombre);
         cmd.Parameters.AddWithValue("@a", p.Apellido);
         cmd.Parameters.AddWithValue("@t", p.Telefono);

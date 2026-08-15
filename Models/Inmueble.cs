@@ -20,14 +20,17 @@ public class Inmueble
 
         [Required]
         public Decimal Precio {get; set;}
-        public Decimal CoordenadaX {get; set;}
-        public Decimal CoordenadaY {get; set;}
+        public Decimal Longitud {get; set;}
+        public Decimal Latitud {get; set;}
         public IFormFile? ImagenPortada {get; set;}
-        public String Estado {get; set;}
-        
+        public String Estado {get; set;} = "";
+        public int PropietarioId {get; set;}
+
         [ForeignKey(nameof(Propietario.IdPropietario))]
-        public Propietario Duenio {get; set;}
-        //Aca deberia ir la foreign key de tipoInmueble, pero al no tener model de dicha entidad no la puedo colocar. Consultar.
-        
+        public Propietario? Duenio {get; set;}
+
+        public int TipoInmuebleId {get; set;}
+        [ForeignKey(nameof(TipoInmueble.Id))]
+        public TipoInmueble? NombreTipo {get; set;} 
     }
 }

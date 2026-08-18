@@ -5,11 +5,14 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
 {
     public class PropietarioController : Controller
     {    
-
-        private RepositorioPropietario repo = new RepositorioPropietario();
+        private readonly RepositorioPropietario repositorio;
+        public PropietarioController(RepositorioPropietario repositorio)
+        {
+            this.repositorio = repositorio;
+        } 
         public IActionResult Index()
         {
-            var lista= repo.ObtenerTodos();
+            var lista= repositorio.ObtenerTodos();
             return View(lista);
         }
     public IActionResult Create()
@@ -17,12 +20,12 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
             return View();
         }
 
-     [HttpPost] 
-     public IActionResult Create(Propietario propietario)
+    [HttpPost] 
+    public IActionResult Create(Propietario propietario)
         {
             if(ModelState.IsValid)
             {    
-                repo.Alta(propietario);
+                repositorio.Alta(propietario);
                 return RedirectToAction(nameof(Index));
             }
             return View(propietario);

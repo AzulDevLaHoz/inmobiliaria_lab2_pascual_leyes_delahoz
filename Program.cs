@@ -1,7 +1,11 @@
+using inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<RepositorioPropietario>();//PROPIETARIO
 
 var app = builder.Build();
 
@@ -13,7 +17,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();

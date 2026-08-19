@@ -1,0 +1,49 @@
+@model inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models.Propietario
+
+@{
+    ViewData["Title"] = "Alta de Propietario";
+}
+
+<h1>Alta de Propietario</h1>
+
+<form asp-action="Alta" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label asp-for="Nombre"></label>
+        <input asp-for="Nombre" />
+        <span asp-validation-for="Nombre"></span>
+    </div>
+
+    <div>
+        <label asp-for="Apellido"></label>
+        <input asp-for="Apellido" />
+        <span asp-validation-for="Apellido"></span>
+    </div>
+
+   @* <div>
+        <label asp-for="Dni"></label>
+        <input asp-for="Dni" />
+        <span asp-validation-for="Dni"></span>
+    </div>*@
+
+    <div>
+        <label asp-for="Telefono"></label>
+        <input asp-for="Telefono" />
+        <span asp-validation-for="Telefono"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" type="email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <input type="submit" value="Guardar" />
+        |
+        <a asp-action="Index">Volver a la lista</a>
+    </div>
+</form>

@@ -12,10 +12,15 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
         } 
         public IActionResult Index()
         {
-            var lista= repositorio.ObtenerTodos();
-            return View(lista);
+          var listaFicticia = new List<Propietario>
+    {
+        new Propietario { IdPropietario = 1, Nombre = "Patricio", Apellido = "Pascual", Telefono = "2664000000", Email = "patricio@mail.com" },
+        new Propietario { IdPropietario = 2, Nombre = "Ana", Apellido = "Gómez", Telefono = "2664111111", Email = "ana@mail.com" }
+    };
+
+    return View(listaFicticia);
         }
-    public IActionResult Create()
+    public IActionResult Alta()
         {
             return View();
         }

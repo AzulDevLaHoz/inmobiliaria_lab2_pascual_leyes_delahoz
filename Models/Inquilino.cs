@@ -17,7 +17,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
         [Required]
         public String Apellido { get; set; } = "";
 
-        [Display(Name = "telefono")]
+        [Display(Name = "Teléfono")]
         public String Telefono { get; set; } = "";
 
         [Required, EmailAddress]

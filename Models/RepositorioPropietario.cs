@@ -21,25 +21,25 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                string sql= "SELECT * FROM propietarios";
-              using  ( var cmd = new MySqlCommand(sql, conn))
-              {
-                var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                string sql = "SELECT * FROM propietarios";
+                using (var cmd = new MySqlCommand(sql, conn))
                 {
-                    lista.Add(new Propietario
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
                     {
-                        IdPropietario = Convert.ToInt32(reader["IdPropietario"]),
-                        Nombre = reader["Nombre"].ToString() ?? "",
-                        Apellido = reader["Apellido"].ToString() ?? "",
-                        Telefono = reader["Telefono"].ToString() ?? "",
-                        Email = reader["Email"].ToString() ?? ""
-                    });
+                        lista.Add(new Propietario
+                        {
+                            IdPropietario = Convert.ToInt32(reader["IdPropietario"]),
+                            Nombre = reader["Nombre"].ToString() ?? "",
+                            Apellido = reader["Apellido"].ToString() ?? "",
+                            Telefono = reader["Telefono"].ToString() ?? "",
+                            Email = reader["Email"].ToString() ?? ""
+                        });
+                    }
                 }
+                return lista;
             }
-            return lista;
-        }
         }
 
 
@@ -69,18 +69,18 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
             using (var conn = new MySqlConnection(connectionString))
             {
                 string sql = "INSERT INTO propietario (Nombre, Apellido, Telefono, Email) VALUES (@n, @a, @t, @e)";
-               using (var cmd = new MySqlCommand(sql, conn))
-              {
-                cmd.Parameters.AddWithValue("@n", p.Nombre);
-                cmd.Parameters.AddWithValue("@a", p.Apellido);
-                cmd.Parameters.AddWithValue("@t", p.Telefono);
-                cmd.Parameters.AddWithValue("@e", p.Email);
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@n", p.Nombre);
+                    cmd.Parameters.AddWithValue("@a", p.Apellido);
+                    cmd.Parameters.AddWithValue("@t", p.Telefono);
+                    cmd.Parameters.AddWithValue("@e", p.Email);
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                p.IdPropietario = Convert.ToInt32(cmd.LastInsertedId);
-                return p.IdPropietario;
-            }
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    p.IdPropietario = Convert.ToInt32(cmd.LastInsertedId);
+                    return p.IdPropietario;
+                }
             }
         }
 
@@ -95,66 +95,66 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
                     Email = @e 
                     WHERE IdPropietario = @id;";
 
-               using (var cmd = new MySqlCommand(sql, conn))
-              {
-                cmd.Parameters.AddWithValue("@id", p.IdPropietario);
-                cmd.Parameters.AddWithValue("@n", p.Nombre);
-                cmd.Parameters.AddWithValue("@a", p.Apellido);
-                cmd.Parameters.AddWithValue("@t", p.Telefono);
-                cmd.Parameters.AddWithValue("@e", p.Email);
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", p.IdPropietario);
+                    cmd.Parameters.AddWithValue("@n", p.Nombre);
+                    cmd.Parameters.AddWithValue("@a", p.Apellido);
+                    cmd.Parameters.AddWithValue("@t", p.Telefono);
+                    cmd.Parameters.AddWithValue("@e", p.Email);
 
-                conn.Open();
-                return cmd.ExecuteNonQuery();
-            }
+                    conn.Open();
+                    return cmd.ExecuteNonQuery();
+                }
             }
         }
 
 
-         public IList<Propietario> Listar(int pagNro = 1, int tamPagina = 10)
-{
-    IList<Propietario> res = new List<Propietario>();
-    
-   
-    int offset = (pagNro - 1) * tamPagina;
+        public IList<Propietario> Listar(int pagNro = 1, int tamPagina = 10)
+        {
+            IList<Propietario> res = new List<Propietario>();
 
-    using (var conn = new MySqlConnection(connectionString))
-    {
-       
-        string sql = @"
+
+            int offset = (pagNro - 1) * tamPagina;
+
+            using (var conn = new MySqlConnection(connectionString))
+            {
+
+                string sql = @"
             SELECT IdPropietario, Nombre, Apellido, Telefono, Email
             FROM Propietarios
             ORDER BY IdPropietario
             LIMIT @tamPagina OFFSET @offset;";
 
-        using (var cmd = new MySqlCommand(sql, conn))
-        {
-            cmd.Parameters.AddWithValue("@tamPagina", tamPagina);
-            cmd.Parameters.AddWithValue("@offset", offset);
-
-            conn.Open();
-
-            using (var reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
+                using (var cmd = new MySqlCommand(sql, conn))
                 {
-                    Propietario p = new Propietario
+                    cmd.Parameters.AddWithValue("@tamPagina", tamPagina);
+                    cmd.Parameters.AddWithValue("@offset", offset);
+
+                    conn.Open();
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        IdPropietario = Convert.ToInt32(reader[nameof(Propietario.IdPropietario)]),
-                        Nombre = reader[nameof(Propietario.Nombre)]?.ToString() ?? "",
-                        Apellido = reader[nameof(Propietario.Apellido)]?.ToString() ?? "",
-                        //Dni = reader.GetString(nameof(Propietario.Dni)), AGREGAR DNI??? 
-                        Telefono = reader[nameof(Propietario.Telefono)]?.ToString() ?? "",
-                        Email = reader[nameof(Propietario.Email)]?.ToString() ?? ""
-                    };
-                    res.Add(p);
+                        while (reader.Read())
+                        {
+                            Propietario p = new Propietario
+                            {
+                                IdPropietario = Convert.ToInt32(reader[nameof(Propietario.IdPropietario)]),
+                                Nombre = reader[nameof(Propietario.Nombre)]?.ToString() ?? "",
+                                Apellido = reader[nameof(Propietario.Apellido)]?.ToString() ?? "",
+                                //Dni = reader.GetString(nameof(Propietario.Dni)), AGREGAR DNI??? 
+                                Telefono = reader[nameof(Propietario.Telefono)]?.ToString() ?? "",
+                                Email = reader[nameof(Propietario.Email)]?.ToString() ?? ""
+                            };
+                            res.Add(p);
+                        }
+                    }
                 }
             }
+
+            return res;
         }
     }
 
-    return res;
-}
-    }
 
-   
 }

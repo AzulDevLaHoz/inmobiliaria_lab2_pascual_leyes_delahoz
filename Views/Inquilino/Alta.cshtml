@@ -1,10 +1,10 @@
-@model inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models.Propietario
+@model inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models.Inquilino
 
 @{
-    ViewData["Title"] = "Alta de Propietario";
+    ViewData["Title"] = "Alta de Inquilino";
 }
 
-<h1>Alta de Propietario</h1>
+<h1>Alta de Inquilino</h1>
 <hr />
 
 <div class="row">
@@ -23,12 +23,6 @@
                 <input asp-for="Apellido" class="form-control" />
                 <span asp-validation-for="Apellido" class="text-danger"></span>
             </div>
-
-            @* <div class="mb-3">
-                <label asp-for="Dni" class="form-label"></label>
-                <input asp-for="Dni" class="form-control" />
-                <span asp-validation-for="Dni" class="text-danger"></span>
-            </div>*@
 
             <div class="mb-3">
                 <label asp-for="Telefono" class="form-label"></label>

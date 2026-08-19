@@ -5,9 +5,11 @@ using MySql.Data.MySqlClient;
 
 namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models;
 
-public class RepositorioInquilino
+public class RepositorioInquilino : RepositorioBase
 {
-    private string connectionString = "DATOS DE LA CONEXION"; // Faltan los datos de la conexion RepoBase
+    public RepositorioInquilino(IConfiguration configuration) : base(configuration)
+    {
+    }
 
     public List<Inquilino> ObtenerTodos()
     {
@@ -57,15 +59,19 @@ public class RepositorioInquilino
         using (var conn = new MySqlConnection(connectionString))
         {
             string sql = "INSERT INTO inquilinos (Nombre, Apellido, Telefono, Email) VALUES (@n, @a, @t, @e)";
-            var cmd = new MySqlCommand(sql, conn);
+            using (var cmd = new MySqlCommand(sql, conn))
+            {
 
-            cmd.Parameters.AddWithValue("@n", i.Nombre);
-            cmd.Parameters.AddWithValue("@a", i.Apellido);
-            cmd.Parameters.AddWithValue("@t", i.Telefono);
-            cmd.Parameters.AddWithValue("@e", i.Email);
+                cmd.Parameters.AddWithValue("@n", i.Nombre);
+                cmd.Parameters.AddWithValue("@a", i.Apellido);
+                cmd.Parameters.AddWithValue("@t", i.Telefono);
+                cmd.Parameters.AddWithValue("@e", i.Email);
 
-            conn.Open();
-            return cmd.ExecuteNonQuery();
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                i.IdInquilino = Convert.ToInt32(cmd.LastInsertedId);
+                return i.IdInquilino;
+            }
         }
     }
 

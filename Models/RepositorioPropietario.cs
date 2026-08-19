@@ -7,11 +7,71 @@ using MySql.Data.MySqlClient;
 namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 {
 
-    public class RepositorioPropietario : RepositorioBase
+    public class RepositorioPropietario : RepositorioBase, IRepositorioPropietario
     {
         public RepositorioPropietario(IConfiguration configuration) : base(configuration)
         {
 
+        }
+
+        public int Alta(Propietario p)
+        {
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                string sql = "INSERT INTO propietario (Nombre, Apellido, Telefono, Email) VALUES (@n, @a, @t, @e)";
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@n", p.Nombre);
+                    cmd.Parameters.AddWithValue("@a", p.Apellido);
+                    cmd.Parameters.AddWithValue("@t", p.Telefono);
+                    cmd.Parameters.AddWithValue("@e", p.Email);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    p.IdPropietario = Convert.ToInt32(cmd.LastInsertedId);
+                    return p.IdPropietario;
+                }
+            }
+        }
+
+        public int Baja(int id)
+        {
+            int res = -1;
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                string sql = "DELETE FROM propietarios WHERE IdPropietario = @id";
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    conn.Open();
+                    res = cmd.ExecuteNonQuery();
+                }
+            }
+            return res;
+        }
+
+        public int Modificar(Propietario p)
+        {
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                string sql = @"UPDATE Propietario 
+                    SET Nombre = @n, 
+                    Apellido = @a, 
+                    Telefono = @t, 
+                    Email = @e 
+                    WHERE IdPropietario = @id;";
+
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", p.IdPropietario);
+                    cmd.Parameters.AddWithValue("@n", p.Nombre);
+                    cmd.Parameters.AddWithValue("@a", p.Apellido);
+                    cmd.Parameters.AddWithValue("@t", p.Telefono);
+                    cmd.Parameters.AddWithValue("@e", p.Email);
+
+                    conn.Open();
+                    return cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public List<Propietario> ObtenerTodos()
@@ -42,75 +102,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
             }
         }
 
-
-
-        public int Baja(int id)
-        {
-            int res = -1;
-
-
-            using (var conn = new MySqlConnection(connectionString))
-            {
-                string sql = "DELETE FROM propietarios WHERE IdPropietario = @id";
-
-                using (var cmd = new MySqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    conn.Open();
-                    res = cmd.ExecuteNonQuery();
-                }
-            }
-
-            return res;
-        }
-
-        public int Alta(Propietario p)
-        {
-            using (var conn = new MySqlConnection(connectionString))
-            {
-                string sql = "INSERT INTO propietario (Nombre, Apellido, Telefono, Email) VALUES (@n, @a, @t, @e)";
-                using (var cmd = new MySqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("@n", p.Nombre);
-                    cmd.Parameters.AddWithValue("@a", p.Apellido);
-                    cmd.Parameters.AddWithValue("@t", p.Telefono);
-                    cmd.Parameters.AddWithValue("@e", p.Email);
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    p.IdPropietario = Convert.ToInt32(cmd.LastInsertedId);
-                    return p.IdPropietario;
-                }
-            }
-        }
-
-        public int ModificarPropietario(Propietario p)
-        {
-            using (var conn = new MySqlConnection(connectionString))
-            {
-                string sql = @"UPDATE Propietario 
-                    SET Nombre = @n, 
-                    Apellido = @a, 
-                    Telefono = @t, 
-                    Email = @e 
-                    WHERE IdPropietario = @id;";
-
-                using (var cmd = new MySqlCommand(sql, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", p.IdPropietario);
-                    cmd.Parameters.AddWithValue("@n", p.Nombre);
-                    cmd.Parameters.AddWithValue("@a", p.Apellido);
-                    cmd.Parameters.AddWithValue("@t", p.Telefono);
-                    cmd.Parameters.AddWithValue("@e", p.Email);
-
-                    conn.Open();
-                    return cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-
-        public IList<Propietario> Listar(int pagNro = 1, int tamPagina = 10)
+        public IList<Propietario> ObtenerLista(int pagNro = 1, int tamPagina = 10)
         {
             IList<Propietario> res = new List<Propietario>();
 
@@ -151,10 +143,24 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
                     }
                 }
             }
-
             return res;
         }
+
+        public Propietario? ObtenerPorEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Propietario> BuscarPorNombre(string nombre)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int ObtenerCantidad => throw new NotImplementedException();
+
+        public Propietario? ObtenerPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
-
-
 }

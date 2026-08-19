@@ -10,7 +10,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
         public int Id { get; set;}
 
         [Required]
-        public String? Nombre {get; set;}
+        public String Nombre {get; set;}
     }
 
 }

@@ -18,18 +18,19 @@ public class RepositorioInquilino : RepositorioBase
         using (var conn = new MySqlConnection(connectionString))
         {
             conn.Open();
-            var cmd = new MySqlCommand("SELECT * FROM inquilinos", conn);
+            var cmd = new MySqlCommand("SELECT * FROM Inquilino", conn);
             var reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
                 lista.Add(new Inquilino
                 {
-                    IdInquilino = Convert.ToInt32(reader["IdInquilino"]),
-                    Nombre = reader["Nombre"].ToString() ?? "",
-                    Apellido = reader["Apellido"].ToString() ?? "",
-                    Telefono = reader["Telefono"].ToString() ?? "",
-                    Email = reader["Email"].ToString() ?? ""
+                    IdInquilino = Convert.ToInt32(reader["idInquilino"]),
+                    Nombre = reader["nombre"].ToString() ?? "",
+                    Apellido = reader["apellido"].ToString() ?? "",
+                    Dni = Convert.ToInt32(reader["dni"]),
+                    Telefono = reader["telefono"].ToString() ?? "",
+                    Email = reader["email"].ToString() ?? ""
                 });
             }
         }
@@ -41,7 +42,7 @@ public class RepositorioInquilino : RepositorioBase
 
         using (var conn = new MySqlConnection(connectionString))
         {
-            string sql = "DELETE FROM inquilinos WHERE IdInquilino = @id";
+            string sql = "DELETE FROM Inquilino WHERE IdInquilino = @id";
 
             using (var cmd = new MySqlCommand(sql, conn))
             {
@@ -58,12 +59,13 @@ public class RepositorioInquilino : RepositorioBase
     {
         using (var conn = new MySqlConnection(connectionString))
         {
-            string sql = "INSERT INTO inquilinos (Nombre, Apellido, Telefono, Email) VALUES (@n, @a, @t, @e)";
+            string sql = "INSERT INTO Inquilino (nombre, apellido, dni, telefono, email) VALUES (@n, @a, @d, @t, @e)";
             using (var cmd = new MySqlCommand(sql, conn))
             {
 
                 cmd.Parameters.AddWithValue("@n", i.Nombre);
                 cmd.Parameters.AddWithValue("@a", i.Apellido);
+                cmd.Parameters.AddWithValue("@d", i.Dni);
                 cmd.Parameters.AddWithValue("@t", i.Telefono);
                 cmd.Parameters.AddWithValue("@e", i.Email);
 
@@ -79,7 +81,7 @@ public class RepositorioInquilino : RepositorioBase
     {
         using (var conn = new MySqlConnection(connectionString))
         {
-            string sql = @"UPDATE inquilinos 
+            string sql = @"UPDATE Inquilino 
                            SET Nombre = @n, 
                                Apellido = @a, 
                                Telefono = @t, 

@@ -14,13 +14,13 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
 
         public IActionResult Index()
         {
-            //var lista = repositorio.ObtenerTodos();
-            var listaFicticia = new List<Inquilino>
+            var lista = repositorio.ObtenerTodos();
+            /*var listaFicticia = new List<Inquilino>
            {
                new Inquilino { IdInquilino=1, Nombre="Leandro", Apellido = "Leyes", Telefono="2664580458", Email="leandroleyes60@gmail.com" },
                new Inquilino { IdInquilino=2, Nombre="Azul", Apellido = "De La Hoz", Telefono="26641234567", Email="azuldev@gmail.com" }
-           };
-            return View(listaFicticia);
+           };*/
+            return View(lista);
         }
         public IActionResult Alta()
         {
@@ -28,7 +28,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Inquilino inquilino)
+        public IActionResult Alta(Inquilino inquilino)
         {
             if (ModelState.IsValid)
             {

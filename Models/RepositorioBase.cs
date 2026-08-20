@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 {
@@ -11,7 +12,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
         protected RepositorioBase(IConfiguration configuration)
         {
             this.configuration = configuration;
-            connectionString = configuration["ConnectionStrings:DefaultConnection"];
+            this.connectionString = configuration.GetConnectionString("MySql");
         }
     }
 }

@@ -77,29 +77,6 @@ public class RepositorioInquilino : RepositorioBase
         }
     }
 
-    /*public int ModificarInquilino(Inquilino i)
-    {
-        using (var conn = new MySqlConnection(connectionString))
-        {
-            string sql = @"UPDATE Inquilino 
-                           SET Nombre = @n, 
-                               Apellido = @a, 
-                               Telefono = @t, 
-                               Email = @e 
-                           WHERE idInquilino = @id;";
-            var cmd = new MySqlCommand(sql, conn);
-
-            cmd.Parameters.AddWithValue("@id", i.IdInquilino);
-            cmd.Parameters.AddWithValue("@n", i.Nombre);
-            cmd.Parameters.AddWithValue("@a", i.Apellido);
-            cmd.Parameters.AddWithValue("@t", i.Telefono);
-            cmd.Parameters.AddWithValue("@e", i.Email);
-
-            conn.Open();
-            return cmd.ExecuteNonQuery();
-        }
-    }*/
-
     public int Modificacion(Inquilino i)
     {
         int res = -1;

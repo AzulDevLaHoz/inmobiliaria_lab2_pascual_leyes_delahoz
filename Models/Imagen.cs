@@ -13,7 +13,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 
         [Display(Name = "Imagen Portada")]
         public string ImagenPortada { get; set; } = "";
-       
+    
  // --- Relación con Inmueble ---
     [Required]
     [ForeignKey(nameof(Inmueble))]

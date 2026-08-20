@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 
 {
-   public class Reserva{
+public class Reserva{
     [Key]
     public int IdReserva { get; set; }
 

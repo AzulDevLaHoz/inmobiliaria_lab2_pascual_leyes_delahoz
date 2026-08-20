@@ -42,7 +42,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
         }
 
         [HttpPost]
-        public ActionResult Modificar(int id, Inquilino entidad)
+        public ActionResult Modificar(int id, Propietario entidad)
         {
             var i = repositorio.ObtenerPorId(id);
             if (i == null) return NotFound();
@@ -55,6 +55,13 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
             repositorio.Modificar(i);
             return RedirectToAction(nameof(Index));
 
+        }
+
+        [HttpPost]
+        public ActionResult Eliminar(int id)
+        {
+            repositorio.Baja(id);
+            return RedirectToAction(nameof(Index));
         }
     }
     

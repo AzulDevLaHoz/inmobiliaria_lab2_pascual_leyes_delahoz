@@ -24,7 +24,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
                     cmd.Parameters.AddWithValue("@n", p.Nombre);
                     cmd.Parameters.AddWithValue("@a", p.Apellido);
                     cmd.Parameters.AddWithValue("@t", p.Telefono);
-                    cmd.Parameters.AddWithValue("@t", p.Dni);
+                    cmd.Parameters.AddWithValue("@d", p.Dni);
                     cmd.Parameters.AddWithValue("@e", p.Email);
                     conn.Open();
                     cmd.ExecuteNonQuery();

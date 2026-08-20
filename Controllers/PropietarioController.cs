@@ -31,7 +31,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Propietario propietario)
+        public IActionResult Alta(Propietario propietario)
         {
             if (ModelState.IsValid)
             {

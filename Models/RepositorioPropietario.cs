@@ -18,12 +18,13 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
         {
             using (var conn = new MySqlConnection(connectionString))
             {
-                string sql = "INSERT INTO propietario (Nombre, Apellido, Telefono, Email) VALUES (@n, @a, @t, @e)";
+                string sql = "INSERT INTO propietario (Nombre, Apellido, Telefono, Dni, Email) VALUES (@n, @a, @t, @d, @e)";
                 using (var cmd = new MySqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@n", p.Nombre);
                     cmd.Parameters.AddWithValue("@a", p.Apellido);
                     cmd.Parameters.AddWithValue("@t", p.Telefono);
+                    cmd.Parameters.AddWithValue("@t", p.Dni);
                     cmd.Parameters.AddWithValue("@e", p.Email);
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -38,7 +39,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
             int res = -1;
             using (var conn = new MySqlConnection(connectionString))
             {
-                string sql = "DELETE FROM propietarios WHERE IdPropietario = @id";
+                string sql = "DELETE FROM propietario WHERE IdPropietario = @id";
                 using (var cmd = new MySqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
@@ -53,7 +54,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
         {
             using (var conn = new MySqlConnection(connectionString))
             {
-                string sql = @"UPDATE Propietario 
+                string sql = @"UPDATE propietario 
                     SET Nombre = @n, 
                     Apellido = @a, 
                     Telefono = @t, 
@@ -81,7 +82,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                string sql = "SELECT * FROM propietarios";
+                string sql = "SELECT * FROM propietario";
                 using (var cmd = new MySqlCommand(sql, conn))
                 {
                     var reader = cmd.ExecuteReader();
@@ -114,7 +115,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 
                 string sql = @"
             SELECT IdPropietario, Nombre, Apellido, Telefono, Email
-            FROM Propietarios
+            FROM propietario
             ORDER BY IdPropietario
             LIMIT @tamPagina OFFSET @offset;";
 

@@ -91,11 +91,12 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
                     {
                         lista.Add(new Propietario
                         {
-                            IdPropietario = Convert.ToInt32(reader["IdPropietario"]),
-                            Nombre = reader["Nombre"].ToString() ?? "",
-                            Apellido = reader["Apellido"].ToString() ?? "",
-                            Telefono = reader["Telefono"].ToString() ?? "",
-                            Email = reader["Email"].ToString() ?? ""
+                            IdPropietario = Convert.ToInt32(reader["idPropietario"]),
+                            Nombre = reader["nombre"].ToString() ?? "",
+                            Apellido = reader["apellido"].ToString() ?? "",
+                            Telefono = reader["telefono"].ToString() ?? "",
+                            Dni = reader["dni"].ToString() ?? "",
+                            Email = reader["email"].ToString() ?? ""
                         });
                     }
                 }

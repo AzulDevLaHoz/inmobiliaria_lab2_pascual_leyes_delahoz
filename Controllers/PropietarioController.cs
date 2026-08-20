@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Controllers
 {
-    public class PropietariosController : Controller
+    public class PropietarioController : Controller
     {
         private readonly IRepositorioPropietario repositorio;
         private readonly IConfiguration config;
-        private readonly ILogger<PropietariosController> logger;
+        private readonly ILogger<PropietarioController> logger;
 
-        public PropietariosController(IRepositorioPropietario repo, IConfiguration config, ILogger<PropietariosController> logger)
+        public PropietarioController(IRepositorioPropietario repo, IConfiguration config, ILogger<PropietarioController> logger)
         {
             this.repositorio = repo;
             this.config = config;

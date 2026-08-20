@@ -51,12 +51,14 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
         }
 
         public int Modificar(Propietario p)
-        {
+        {    
+            int res = -1;
             using (var conn = new MySqlConnection(connectionString))
             {
                 string sql = @"UPDATE propietario 
                     SET Nombre = @n, 
                     Apellido = @a, 
+                    Dni = @d,
                     Telefono = @t, 
                     Email = @e 
                     WHERE IdPropietario = @id;";
@@ -66,13 +68,15 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
                     cmd.Parameters.AddWithValue("@id", p.IdPropietario);
                     cmd.Parameters.AddWithValue("@n", p.Nombre);
                     cmd.Parameters.AddWithValue("@a", p.Apellido);
+                    cmd.Parameters.AddWithValue("@d", p.Dni);
                     cmd.Parameters.AddWithValue("@t", p.Telefono);
                     cmd.Parameters.AddWithValue("@e", p.Email);
 
                     conn.Open();
-                    return cmd.ExecuteNonQuery();
+                    res= cmd.ExecuteNonQuery();
                 }
             }
+            return res;
         }
 
         public List<Propietario> ObtenerTodos()
@@ -115,7 +119,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
             {
 
                 string sql = @"
-            SELECT IdPropietario, Nombre, Apellido, Telefono, Email
+            SELECT IdPropietario, Nombre, Apellido, Telefono,Dni, Email
             FROM propietario
             ORDER BY IdPropietario
             LIMIT @tamPagina OFFSET @offset;";
@@ -136,7 +140,7 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
                                 IdPropietario = Convert.ToInt32(reader[nameof(Propietario.IdPropietario)]),
                                 Nombre = reader[nameof(Propietario.Nombre)]?.ToString() ?? "",
                                 Apellido = reader[nameof(Propietario.Apellido)]?.ToString() ?? "",
-                                //Dni = reader.GetString(nameof(Propietario.Dni)), AGREGAR DNI??? 
+                                Dni = reader.GetString(nameof(Propietario.Dni)), 
                                 Telefono = reader[nameof(Propietario.Telefono)]?.ToString() ?? "",
                                 Email = reader[nameof(Propietario.Email)]?.ToString() ?? ""
                             };
@@ -160,9 +164,37 @@ namespace inmobiliaria_lab2_pascual_leyes_delahoz_clavero.Models
 
         public int ObtenerCantidad => throw new NotImplementedException();
 
-        public Propietario? ObtenerPorId(int id)
+        virtual public Propietario ObtenerPorId(int id)
+    {
+        Propietario? p = null;
+        using (var connection = new MySqlConnection(connectionString))
         {
-            throw new NotImplementedException();
+            string sql = @"SELECT 
+					idPropietario, nombre, apellido, dni, telefono, email
+					FROM Propietario
+					WHERE idPropietario=@id";
+            using (var command = new MySqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                command.CommandType = CommandType.Text;
+                connection.Open();
+                var reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    p = new Propietario
+                    {
+                        IdPropietario = reader.GetInt32("IdPropietario"),
+                        Nombre = reader.GetString("nombre"),
+                        Apellido = reader.GetString("apellido"),
+                        Dni = reader.GetString("dni"),
+                        Telefono = reader.GetString("telefono"),
+                        Email = reader.GetString("email"),
+                    };
+                }
+                connection.Close();
+            }
         }
+        return p;
+    }
     }
 }

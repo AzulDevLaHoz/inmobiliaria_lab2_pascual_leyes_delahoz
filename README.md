@@ -53,3 +53,6 @@ Navega desde la terminal hasta la carpeta raíz del proyecto.
 
 Acceso desde el navegador:
 Una vez iniciada la aplicación, ingresa a la URL que indica la consola (por ejemplo, http://localhost:5253).
+
+Diagrama Entidad Relacion
+![alt text](Diagrama.jpeg)

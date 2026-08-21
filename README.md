@@ -78,7 +78,7 @@ Antes de ejecutar el proyecto, asegúrate de contar con el siguiente software in
 
 1. **Navegar a la carpeta raíz del proyecto:**
    ```bash
-   cd inmboiliarialab2_pascual_leyes_delahoz
+   cd inmboiliarialab2_pascual_leyes_delahoz_clavero
    ```
 
 2. **Iniciar la aplicación:**
@@ -93,8 +93,4 @@ Antes de ejecutar el proyecto, asegúrate de contar con el siguiente software in
 
 ## 📐 Diagrama Entidad - Relación (DER)
 
-A continuación se detalla el diseño conceptual de la base de datos del sistema:
-
-<div align="center">
-  <img src="DataBase/Diagrama.jpeg" alt="Diagrama Entidad Relación" width="85%" />
-</div>
+![alt text](Diagrama.jpeg)
